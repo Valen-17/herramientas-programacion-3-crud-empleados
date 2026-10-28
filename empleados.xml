@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Uso de UTF-8 para tildes-->
+<Empleados>
+<!-- Lista de empleados -->
+  <Empleado>
+    <IdEmpleado>1</IdEmpleado>
+    <strNombre>Daniel Camilo Henao Lopez</strNombre>
+    <NumDocumento>1003456789</NumDocumento>
+    <StrDireccion>Calle 123 #45-67</StrDireccion>
+    <StrTelefono>+57 300 1234567</StrTelefono>
+    <StrEmail>daniel.henao@gmail.com</StrEmail>
+    <DtmIngreso>2021-01-28</DtmIngreso>
+  </Empleado>
+  <Empleado>
+    <IdEmpleado>2</IdEmpleado>
+    <strNombre>María Rojas Gomez</strNombre>
+    <NumDocumento>1009876543</NumDocumento>
+    <StrDireccion>Carrera 45 #12-34</StrDireccion>
+    <StrTelefono>+57 310 7654321</StrTelefono>
+    <StrEmail>maria.rojas@gmail.com</StrEmail>
+    <DtmIngreso>2023-03-15</DtmIngreso>
+  </Empleado>
+  <Empleado>
+    <IdEmpleado>3</IdEmpleado>
+    <strNombre>Daniela Montoya Quintero</strNombre>
+    <NumDocumento>1001234567</NumDocumento>
+    <StrDireccion>Avenida 67 #89-01</StrDireccion>
+    <StrTelefono>+57 320 9876543</StrTelefono>
+    <StrEmail>daniela.montoya@gmail.com</StrEmail>
+    <DtmIngreso>2022-06-10</DtmIngreso>
+  </Empleado>
+  <Empleado>
+    <IdEmpleado>4</IdEmpleado>
+    <strNombre>Juan Pablo Torres</strNombre>
+    <NumDocumento>1004567890</NumDocumento>
+    <StrDireccion>Calle 78 #56-12</StrDireccion>
+    <StrTelefono>+57 311 2345678</StrTelefono>
+    <StrEmail>juan.torres@gmail.com</StrEmail>
+    <DtmIngreso>2021-06-15</DtmIngreso>
+  </Empleado>
+  <Empleado>
+    <IdEmpleado>5</IdEmpleado>
+    <strNombre>Laura Fernanda Ríos</strNombre>
+    <NumDocumento>1005678901</NumDocumento>
+    <StrDireccion>Carrera 34 #23-45</StrDireccion>
+    <StrTelefono>+57 312 3456789</StrTelefono>
+    <StrEmail>laura.rios@gmail.com</StrEmail>
+    <DtmIngreso>2023-06-20</DtmIngreso>
+  </Empleado>
+</Empleados>

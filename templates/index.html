@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- Autora: Valentina Alejandra Pérez Cardona -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel de Talento Humano</title>
+    <meta name="description" content="Gestión de empleados con persistencia en archivos XML y JSON.">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/estilos.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar__inner">
+            <div class="brand">
+                <span class="brand__logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </span>
+                <div>
+                    <h1 class="brand__title">Panel de Talento Humano</h1>
+                    <p class="brand__sub">Gestión de empleados en XML y JSON</p>
+                </div>
+            </div>
+
+            <div class="topbar__tools">
+                <div class="segmented" role="radiogroup" aria-label="Formato de archivo">
+                    <button type="button" class="segmented__btn is-active" role="radio" aria-checked="true" data-formato="json">JSON</button>
+                    <button type="button" class="segmented__btn" role="radio" aria-checked="false" data-formato="xml">XML</button>
+                </div>
+                <button type="button" class="btn btn--ghost" id="btnSincronizar" title="Copia los datos del formato activo al otro archivo">Sincronizar</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="kpis" aria-label="Resumen">
+            <article class="kpi">
+                <span class="kpi__label">Total de empleados</span>
+                <strong class="kpi__value" id="kpiTotal">0</strong>
+                <span class="kpi__hint">registrados en el archivo</span>
+            </article>
+            <article class="kpi">
+                <span class="kpi__label">Ingresos últimos 12 meses</span>
+                <strong class="kpi__value" id="kpiNuevos">0</strong>
+                <span class="kpi__hint">nuevas vinculaciones</span>
+            </article>
+            <article class="kpi">
+                <span class="kpi__label">Antigüedad promedio</span>
+                <strong class="kpi__value" id="kpiAntiguedad">0</strong>
+                <span class="kpi__hint">años en la empresa</span>
+            </article>
+            <article class="kpi">
+                <span class="kpi__label">Archivo activo</span>
+                <strong class="kpi__value kpi__value--small" id="kpiArchivo">empleados.json</strong>
+                <span class="kpi__hint">cada cambio se guarda aquí</span>
+            </article>
+        </section>
+
+        <section class="card">
+            <div class="toolbar">
+                <label class="search" for="txtBuscar">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input type="search" id="txtBuscar" placeholder="Buscar por nombre, documento, email o teléfono" autocomplete="off">
+                </label>
+                <div class="toolbar__actions">
+                    <a class="btn btn--ghost" id="btnExportar" href="/api/exportar?formato=json">Exportar CSV</a>
+                    <button type="button" class="btn btn--primary" id="btnNuevo">+ Nuevo empleado</button>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table" id="dgvEmpleados">
+                    <thead>
+                        <tr>
+                            <th data-campo="IdEmpleado" scope="col">Id</th>
+                            <th data-campo="strNombre" scope="col">Empleado</th>
+                            <th data-campo="NumDocumento" scope="col">Documento</th>
+                            <th data-campo="StrTelefono" scope="col">Teléfono</th>
+                            <th data-campo="StrDireccion" scope="col">Dirección</th>
+                            <th data-campo="DtmIngreso" scope="col">Ingreso</th>
+                            <th scope="col" class="table__acciones">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblBody"></tbody>
+                </table>
+            </div>
+            <p class="count" id="lblConteo" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <dialog class="modal" id="dlgEmpleado" aria-labelledby="dlgTitulo">
+        <form id="frmEmpleado" novalidate>
+            <header class="modal__header">
+                <h2 id="dlgTitulo">Nuevo empleado</h2>
+                <button type="button" class="icon-btn" data-cerrar aria-label="Cerrar">&times;</button>
+            </header>
+            <div class="modal__body">
+                <p class="form-note"><span class="req" aria-hidden="true">*</span> Campo obligatorio</p>
+                <div class="form-grid">
+                    <div class="field field--full">
+                        <label for="txtNombre">Nombre completo <span class="req" aria-hidden="true">*</span></label>
+                        <input id="txtNombre" name="strNombre" maxlength="50" autocomplete="off" placeholder="Ej. Juan Carlos Pérez" aria-required="true" aria-describedby="err-strNombre">
+                        <small class="field__error" id="err-strNombre" data-error="strNombre"></small>
+                    </div>
+                    <div class="field">
+                        <label for="txtDocumento">Documento <span class="req" aria-hidden="true">*</span></label>
+                        <input id="txtDocumento" name="NumDocumento" inputmode="numeric" maxlength="15" autocomplete="off" placeholder="Solo números" aria-required="true" aria-describedby="err-NumDocumento">
+                        <small class="field__error" id="err-NumDocumento" data-error="NumDocumento"></small>
+                    </div>
+                    <div class="field">
+                        <label for="txtTelefono">Teléfono</label>
+                        <input id="txtTelefono" name="StrTelefono" inputmode="tel" maxlength="20" autocomplete="off" placeholder="+57 300 1234567" aria-describedby="err-StrTelefono">
+                        <small class="field__error" id="err-StrTelefono" data-error="StrTelefono"></small>
+                    </div>
+                    <div class="field field--full">
+                        <label for="txtEmail">Email <span class="req" aria-hidden="true">*</span></label>
+                        <input id="txtEmail" name="StrEmail" type="email" maxlength="50" autocomplete="off" placeholder="nombre@correo.com" aria-required="true" aria-describedby="err-StrEmail">
+                        <small class="field__error" id="err-StrEmail" data-error="StrEmail"></small>
+                    </div>
+                    <div class="field">
+                        <label for="txtDireccion">Dirección</label>
+                        <input id="txtDireccion" name="StrDireccion" maxlength="50" autocomplete="off" placeholder="Calle 45 #23-10" aria-describedby="err-StrDireccion">
+                        <small class="field__error" id="err-StrDireccion" data-error="StrDireccion"></small>
+                    </div>
+                    <div class="field">
+                        <label for="txtIngreso">Fecha de ingreso</label>
+                        <input id="txtIngreso" name="DtmIngreso" type="date" aria-describedby="err-DtmIngreso">
+                        <small class="field__error" id="err-DtmIngreso" data-error="DtmIngreso"></small>
+                    </div>
+                </div>
+            </div>
+            <footer class="modal__footer">
+                <button type="button" class="btn btn--ghost" data-cerrar>Cancelar</button>
+                <button type="submit" class="btn btn--primary" id="btnGuardar">Guardar</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog class="modal modal--small" id="dlgConfirmar" aria-labelledby="dlgConfTitulo">
+        <header class="modal__header">
+            <h2 id="dlgConfTitulo">Eliminar empleado</h2>
+        </header>
+        <div class="modal__body">
+            <p id="lblConfirmar"></p>
+        </div>
+        <footer class="modal__footer">
+            <button type="button" class="btn btn--ghost" id="btnConfNo">Cancelar</button>
+            <button type="button" class="btn btn--danger" id="btnConfSi">Sí, eliminar</button>
+        </footer>
+    </dialog>
+
+    <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

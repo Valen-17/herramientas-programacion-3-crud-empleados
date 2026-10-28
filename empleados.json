@@ -1,0 +1,47 @@
+[
+    {
+        "IdEmpleado": 1,
+        "strNombre": "Daniel Camilo Henao Lopez",
+        "NumDocumento": 1003456789,
+        "StrDireccion": "Calle 123 #45-67",
+        "StrTelefono": "+57 300 1234567",
+        "StrEmail": "daniel.henao@gmail.com",
+        "DtmIngreso": "2021-01-28"
+    },
+    {
+        "IdEmpleado": 2,
+        "strNombre": "María Rojas Gomez",
+        "NumDocumento": 1009876543,
+        "StrDireccion": "Carrera 45 #12-34",
+        "StrTelefono": "+57 310 7654321",
+        "StrEmail": "maria.rojas@gmail.com",
+        "DtmIngreso": "2023-03-15"
+    },
+    {
+        "IdEmpleado": 3,
+        "strNombre": "Daniela Montoya Quintero",
+        "NumDocumento": 1001234567,
+        "StrDireccion": "Avenida 67 #89-01",
+        "StrTelefono": "+57 320 9876543",
+        "StrEmail": "daniela.montoya@gmail.com",
+        "DtmIngreso": "2022-06-10"
+    },
+    {
+        "IdEmpleado": 4,
+        "strNombre": "Juan Pablo Torres",
+        "NumDocumento": 1004567890,
+        "StrDireccion": "Calle 78 #56-12",
+        "StrTelefono": "+57 311 2345678",
+        "StrEmail": "juan.torres@gmail.com",
+        "DtmIngreso": "2021-06-15"
+    },
+    {
+        "IdEmpleado": 5,
+        "strNombre": "Laura Fernanda Ríos",
+        "NumDocumento": 1005678901,
+        "StrDireccion": "Carrera 34 #23-45",
+        "StrTelefono": "+57 312 3456789",
+        "StrEmail": "laura.rios@gmail.com",
+        "DtmIngreso": "2023-06-20"
+    }
+]
